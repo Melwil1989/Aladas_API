@@ -20,7 +20,7 @@ public class Aeropuerto {
         return aeropuertoId;
     }
 
-    public void setId(Integer aeropuertoId) {
+    public void setAeropuertoId(Integer aeropuertoId) {
         this.aeropuertoId = aeropuertoId;
     }
 
