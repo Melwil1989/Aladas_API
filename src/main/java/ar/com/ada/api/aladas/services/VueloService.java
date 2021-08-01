@@ -52,10 +52,10 @@ public class VueloService {
 
     public ValidacionVueloDataEnum validar(Vuelo vuelo) {
 
-        if(!=validarPrecio(vuelo)) 
+        if(!validarPrecio(vuelo)) 
             return ValidacionVueloDataEnum.ERROR_PRECIO;
 
-        if(!=validarAeropuertoOrigenDiffDestino(vuelo))
+        if(!validarAeropuertoOrigenDiffDestino(vuelo))
             return ValidacionVueloDataEnum.ERROR_AEROPUERTOS_IGUALES;
 
         return ValidacionVueloDataEnum.OK;
