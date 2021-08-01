@@ -81,6 +81,17 @@ public class Reserva {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    /* public void setPasaje(Pasaje pasaje) { // relacion bidireccional a traves del setter (asociar)
+        this.pasaje = pasaje;
+        pasaje.setReserva(this);
+    } */
+
+    // version alternativa en vez de setter
+    public void asociarPasaje(Pasaje pasaje) { 
+        this.pasaje = pasaje;
+        pasaje.setReserva(this);
+    }
+
     public enum EstadoReservaEnum {
 
         CREADA(1), TRANSMITIENDO_AL_PG(2), ERROR_AL_CONECTAR_PG(3), PENDIENTE_DE_PAGO(4), PAGADA(5), CANCELADO_POR_USUARIO(6), CANCELADO_POR_EMPRESA(7), PAGO_RECHAZADO(8), EXPIRADO(9), EMITIDA(10);        

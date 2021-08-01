@@ -32,6 +32,7 @@ public class Usuario {
     @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
     private Staff staff;
 
+    @OneToOne
     @JoinColumn(name = "pasajero_id", referencedColumnName = "pasajero_id")
     private Pasajero pasajero;
 

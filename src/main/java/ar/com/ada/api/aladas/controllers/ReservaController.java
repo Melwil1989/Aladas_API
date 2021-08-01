@@ -26,8 +26,7 @@ public class ReservaController {
         respuesta.message = "La reserva fue creada correctamente";
         respuesta.id = reserva.getReservaId();
 
-        return ResponseEntity.ok(respuesta);
-        
+        return ResponseEntity.ok(respuesta);       
     }
     
 }
