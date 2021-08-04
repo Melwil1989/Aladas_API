@@ -1,10 +1,13 @@
 package ar.com.ada.api.aladas.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.aladas.entities.Aeropuerto;
 import ar.com.ada.api.aladas.entities.Vuelo;
+import ar.com.ada.api.aladas.models.request.EstadoVueloRequest;
 import ar.com.ada.api.aladas.models.response.GenericResponse;
 import ar.com.ada.api.aladas.services.AeropuertoService;
 import ar.com.ada.api.aladas.services.VueloService;
@@ -70,5 +73,29 @@ public class VueloController {
         return ResponseEntity.ok(respuesta);
 
     } */
+
+    @PutMapping("/api/vuelos/{id}/estados")
+    public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
+        @RequestBody EstadoVueloRequest estadoVuelo) {
+
+        GenericResponse r = new GenericResponse();
+        r.isOk = true;
+        // Pasos:
+        // 1 Buscar un vuelo por id y lo asignamos a una variable (vuelo)
+        Vuelo vuelo = service.buscarPorId(id);
+        // 2 Setearle el nuevo estado, que vino en estadoVuelo al vuelo
+        vuelo.setEstadoVueloId(estadoVuelo.estado); 
+        // 3 Grabar el vuelo en la base de datos 
+        service.actualizar(vuelo);
+        // 4 Que devuelva el status final
+        r.message = "Actualizado";
+        return ResponseEntity.ok(r);
+    }
+
+    @GetMapping("/api/vuelos/abiertos")
+    public ResponseEntity<List<Vuelo>> getVuelosAbiertos() {
+        
+        return ResponseEntity.ok(service.traerVuelosAbiertos());
+    }
     
 }
