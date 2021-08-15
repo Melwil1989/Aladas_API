@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ar.com.ada.api.aladas.entities.Aeropuerto;
 import ar.com.ada.api.aladas.models.response.GenericResponse;
 import ar.com.ada.api.aladas.services.AeropuertoService;
+import ar.com.ada.api.aladas.services.AeropuertoService.ValidacionAeropuertoDataEnum;
 
 @RestController
 public class AeropuertoController {
@@ -21,13 +22,25 @@ public class AeropuertoController {
 
         GenericResponse respuesta = new GenericResponse();
 
-        service.crear(aeropuerto.getAeropuertoId(), aeropuerto.getNombre(), aeropuerto.getCodigoIATA());
+        ValidacionAeropuertoDataEnum resultado = service.validar(aeropuerto);
 
-        respuesta.isOk = true;
-        respuesta.message = "El aeropuerto fue creado correctamente";
-        respuesta.id = aeropuerto.getAeropuertoId();
+        if(resultado == ValidacionAeropuertoDataEnum.OK) {
 
-        return ResponseEntity.ok(respuesta);
+            service.crear(aeropuerto.getAeropuertoId(), aeropuerto.getNombre(), aeropuerto.getCodigoIATA());
+
+            respuesta.isOk = true;
+            respuesta.message = "El aeropuerto fue creado correctamente";
+            respuesta.id = aeropuerto.getAeropuertoId();
+
+            return ResponseEntity.ok(respuesta);
+        } 
+        else {
+
+            respuesta.isOk = false;
+            respuesta.message = "Error(" + resultado.toString() + ")";
+
+            return ResponseEntity.badRequest().body(respuesta);
+        }
     }
 
     @GetMapping("/api/aeropuertos")

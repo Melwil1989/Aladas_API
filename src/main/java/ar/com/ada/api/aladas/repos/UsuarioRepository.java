@@ -9,7 +9,6 @@ import ar.com.ada.api.aladas.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public Usuario findByUsername(String userName);
-
     public Usuario findByEmail(String email);
     
 }
