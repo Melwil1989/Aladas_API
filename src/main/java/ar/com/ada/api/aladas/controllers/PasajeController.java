@@ -2,8 +2,7 @@ package ar.com.ada.api.aladas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.aladas.entities.Pasaje;
 import ar.com.ada.api.aladas.models.request.InfoPasajeNuevo;
@@ -16,6 +15,7 @@ public class PasajeController {
     @Autowired
     PasajeService service;
 
+    @PostMapping("/api/pasajes")
     public ResponseEntity<GenericResponse> emitir(@RequestBody InfoPasajeNuevo infoPasajes) {
 
         GenericResponse respuesta = new GenericResponse();

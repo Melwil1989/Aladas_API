@@ -48,7 +48,6 @@ public class AuthController {
         r.userId = usuario.getUsuarioId(); // <- aqui ponemos el numero de ID para darle a front
 
         return ResponseEntity.ok(r);
-
     }
 
     @PostMapping("api/auth/login")

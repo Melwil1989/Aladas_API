@@ -40,7 +40,9 @@ public class VueloController {
         GenericResponse respuesta = new GenericResponse();
 
         ValidacionVueloDataEnum resultadoValidacion = service.validar(vuelo);
+
         if(resultadoValidacion == ValidacionVueloDataEnum.OK) {
+
             service.crear(vuelo);
 
             respuesta.isOk = true;
@@ -48,7 +50,9 @@ public class VueloController {
             respuesta.message = "Vuelo creado correctamente";
 
             return ResponseEntity.ok(respuesta);
+
         } else {
+
             respuesta.isOk = false;
             respuesta.message = "Error(" + resultadoValidacion.toString() + ")";
 
@@ -100,19 +104,23 @@ public class VueloController {
     }
 
     @GetMapping("/api/vuelos/{id}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<Vuelo> getVueloPorId(@PathVariable Integer id){
+
         Vuelo vuelo = service.buscarPorId(id);
         return ResponseEntity.ok(vuelo);
     }
 
     @GetMapping("api/vuelos/aeropuertos/{id}")
     public ResponseEntity<List<Vuelo>> getVueloPorOrigen(@PathVariable Integer id){
+
         List<Vuelo> vuelo = service.buscarOrigen(id);
         return ResponseEntity.ok(vuelo);
     }
 
-    @GetMapping("api/vuelos/V2/{id}")
+    @GetMapping("api/vuelos/aeropuertosV2/{id}")
     public ResponseEntity<List<Vuelo>> getVueloPorDestino(@PathVariable Integer id){
+
         List<Vuelo> vuelo = service.buscarDestino(id);
         return ResponseEntity.ok(vuelo);
     }
