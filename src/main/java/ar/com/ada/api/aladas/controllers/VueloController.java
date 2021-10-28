@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import ar.com.ada.api.aladas.entities.Aeropuerto;
 import ar.com.ada.api.aladas.entities.Vuelo;
 import ar.com.ada.api.aladas.models.request.EstadoVueloRequest;
 import ar.com.ada.api.aladas.models.response.GenericResponse;
@@ -35,6 +34,7 @@ public class VueloController {
     }
 
     @PostMapping("/api/vuelos")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<GenericResponse> postCrearVuelo(@RequestBody Vuelo vuelo) {
 
         GenericResponse respuesta = new GenericResponse();
@@ -80,6 +80,7 @@ public class VueloController {
     } */
 
     @PutMapping("/api/vuelos/{id}/estados")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
         @RequestBody EstadoVueloRequest estadoVuelo) {
 
@@ -104,30 +105,30 @@ public class VueloController {
     }
 
     @GetMapping("/api/vuelos/{id}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
-    public ResponseEntity<Vuelo> getVueloPorId(@PathVariable Integer id){
+    //@PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
+    public ResponseEntity<Vuelo> getVueloPorId(@PathVariable Integer id) {
 
         Vuelo vuelo = service.buscarPorId(id);
         return ResponseEntity.ok(vuelo);
     }
 
     @GetMapping("api/vuelos/aeropuertos/{id}")
-    public ResponseEntity<List<Vuelo>> getVueloPorOrigen(@PathVariable Integer id){
+    public ResponseEntity<List<Vuelo>> getVueloPorOrigen(@PathVariable Integer id) {
 
         List<Vuelo> vuelo = service.buscarOrigen(id);
         return ResponseEntity.ok(vuelo);
     }
 
     @GetMapping("api/vuelos/aeropuertosV2/{id}")
-    public ResponseEntity<List<Vuelo>> getVueloPorDestino(@PathVariable Integer id){
+    public ResponseEntity<List<Vuelo>> getVueloPorDestino(@PathVariable Integer id) {
 
         List<Vuelo> vuelo = service.buscarDestino(id);
         return ResponseEntity.ok(vuelo);
     }
 
     @GetMapping("api/vuelos/{id}/estadov2")
-    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')") //Spring expression language
-    public ResponseEntity<?> getEstadoVueloV2(@PathVariable Integer id){
+    //@PreAuthorize("hasAuthority('CLAIM_userType_STAFF')") //Spring expression language
+    public ResponseEntity<?> getEstadoVueloV2(@PathVariable Integer id) {
       
         Vuelo vuelo = service.buscarPorId(id);
         return ResponseEntity.ok(vuelo.getEstadoVueloId());

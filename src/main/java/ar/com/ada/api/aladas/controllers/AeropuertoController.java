@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.aladas.entities.Aeropuerto;
@@ -18,6 +19,7 @@ public class AeropuertoController {
     AeropuertoService service;
 
     @PostMapping("api/aeropuertos")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<GenericResponse> crear(@RequestBody Aeropuerto aeropuerto) {
 
         GenericResponse respuesta = new GenericResponse();

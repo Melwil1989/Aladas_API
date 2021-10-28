@@ -42,6 +42,7 @@ class AladasApplicationTests {
 		assertTrue(vueloService.validarPrecio(vueloConPrecioOk));
 	}
 
+	@Test
 	void aeropuertoValidarCodigoIATAOk() {
 		
 		String codigoIATAOk1 = "EZE";
