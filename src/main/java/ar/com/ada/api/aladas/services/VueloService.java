@@ -1,8 +1,7 @@
 package ar.com.ada.api.aladas.services;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,7 +90,19 @@ public class VueloService {
 
     public Vuelo buscarPorId(Integer id) {
 
-        return repo.findByVueloId(id);
+        Optional<Vuelo> opVuelo =  repo.findById(id);
+        Vuelo vuelo = null;
+
+        if(opVuelo.isPresent())
+            vuelo = opVuelo.get();
+
+        return vuelo;
+    }
+
+    public boolean existePorId(int id) {
+
+        Vuelo vuelo = repo.findByVueloId(id);
+        return vuelo != null;
     }
 
     public void actualizar(Vuelo vuelo) {
@@ -105,10 +116,12 @@ public class VueloService {
     }
 
     public List<Vuelo> buscarOrigen(Integer id) {
+
         return repo.findByAeropuertoOrigen(id);
     }
 
     public List<Vuelo> buscarDestino(Integer id) {
+
         return repo.findByAeropuertoDestino(id);
     }
     

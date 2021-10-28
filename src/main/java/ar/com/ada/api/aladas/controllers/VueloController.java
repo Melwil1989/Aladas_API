@@ -106,10 +106,21 @@ public class VueloController {
 
     @GetMapping("/api/vuelos/{id}")
     //@PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
-    public ResponseEntity<Vuelo> getVueloPorId(@PathVariable Integer id) {
+    public ResponseEntity<?> getVueloPorId(@PathVariable Integer id) {
 
-        Vuelo vuelo = service.buscarPorId(id);
-        return ResponseEntity.ok(vuelo);
+        GenericResponse respuesta = new GenericResponse();
+
+        if(service.existePorId(id)) {
+
+            return ResponseEntity.ok(service.buscarPorId(id));
+
+        } else {
+
+            respuesta.isOk = false;
+            respuesta.message = "El vuelo no existe";
+
+            return ResponseEntity.badRequest().body(respuesta);
+        }
     }
 
     @GetMapping("api/vuelos/aeropuertos/{id}")
