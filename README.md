@@ -24,4 +24,4 @@ https://ada-aladas-mw.herokuapp.com/
 
 #### Esquema de la base de datos
 
-![EsquemaAladas](https://user-images.githubusercontent.com/79877606/139321579-3a434324-241f-491c-b471-c6f4c53f1938.png)
+![EsquemaAladas](https://user-images.githubusercontent.com/79877606/140368126-a0381f3c-693b-48d7-afc3-84a69f660c18.png)
